@@ -10,12 +10,12 @@
         <span>用户登录</span>
       </div>
       <!-- 表单输入框区域 -->
-      <el-form ref="lodinForm" :model="loginForm" :rules="loginFromRules" class="login-form">
-        <!-- 手机号 -->
-        <el-form-item prop="phone">
+      <el-form ref="loginForm" :model="loginForm" :rules="loginFromRules" class="login-form">
+        <!-- 用户名 -->
+        <el-form-item prop="username">
           <el-row>
             <el-col :span="24">
-              <el-input placeholder="请输入手机号" prefix-icon="el-icon-search" v-model="loginForm.phone">
+              <el-input placeholder="请输入用户名" prefix-icon="el-icon-search" v-model="loginForm.username">
               </el-input>
             </el-col>
           </el-row>
@@ -30,7 +30,7 @@
           </el-row>
         </el-form-item>
         <!-- 验证码 -->
-        <el-form-item prop="code">
+        <!-- <el-form-item prop="code">
           <el-row>
             <el-col :span="17">
               <el-input placeholder="请输入验证码" prefix-icon="el-icon-search" v-model="loginForm.code">
@@ -43,12 +43,12 @@
             </el-col>
           </el-row>
 
-        </el-form-item>
+        </el-form-item> -->
         <!-- 多选框 -->
-        <el-form-item>
+        <el-form-item prop="checked">
           <el-row>
             <el-col :span="24">
-              <el-checkbox v-model="checked">
+              <el-checkbox v-model="loginForm.checked" name="checked">
                 我已阅读并同意<a href="#">用户协议</a>和<a href="#">隐私条款</a>
               </el-checkbox>
             </el-col>
@@ -75,43 +75,69 @@
 </template>
 
 <script>
-import register from '@/views/login/components/register.vue'
+import { setToken, getToken } from '@/utils/token.js'
 import Register from '@/views/login/components/register.vue'
+import shajs from 'sha.js'
+import { login } from '@/api/login'
 export default {
   name: 'Login',
-  components: { register, Register },
+  components: { Register },
   data() {
     return {
       // 登录请求需要的请求数据
       loginForm: {
-        phone: '',
+        username: '',
         password: '',
-        code: ''
+        // 多选框 状态
+        checked: []
       },
-      // 多选框 状态
-      checked: false,
       // 登录验证规则
       loginFromRules: {
-        phone: [
-          { required: true, message: '请输入手机号', trigger: 'blur' }
-          // { pattern: '/0?(13|14|15|17|18)[0-9]{9}/', message: '请输入正确的手机号', trigger: 'blur' }
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+          // { min: 11, max: 11, trigger: 'blur', message: '请输入11位的手机号' },
+          // { pattern: /0?(13|14|15|17|18)[0-9]{9}/, message: '请输入正确的手机号', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
           { min: 6, max: 12, message: '请输入6-12个字符', trigger: 'blur' }
         ],
-        code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
+        checked: [{ type: 'array', required: true, message: '请阅读并勾选', trigger: 'change,blur' }]
       }
     }
   },
+  // beforeCreate() {
+  //   // token 的非空判断
+  //   if (!getToken()) {
+  //     this.$message.error('必须登录才可以访问首页')
+  //     this.$router.push('/login')
+  //   }
+  // },
   methods: {
     // 注册用户事件
     setUser() {
-      console.log(this.$refs.setDig)
       this.$refs.setDig.setUserVisible = true
     },
+    // 登录事件
     login() {
-      this.$router.push('/dashboard')
+      this.$refs.loginForm.validate(validate => {
+        if (validate) {
+          login({
+            username: this.loginForm.username,
+            password: shajs('sha256').update(this.loginForm.password).digest('hex')
+          }).then(res => {
+            if (res.status === 200) {
+              this.$message.success('登录成功')
+              console.log('res', res)
+              console.log('token', res.data.token)
+              setToken(res.data.token)
+            }
+          })
+          this.$router.push('/layout')
+        } else {
+          return false
+        }
+      })
     }
   }
 }
