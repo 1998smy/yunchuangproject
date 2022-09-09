@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { setToken, getToken } from '@/utils/token.js';
 
 // 全局使用
 Vue.use(Vuex)
@@ -7,13 +8,19 @@ Vue.use(Vuex)
 // 创建仓库
 const store = new Vuex.Store({
   state: {
-    userInfo: undefined
+    userName: sessionStorage.getItem('userName') || '',
+    token: getToken() || '',
   },
   getters: {
   },
   mutations: {
-    SETINFO(state, info) {
-      state.userInfo = info
+    SETUSERNAME(state, name) {
+      state.userName = name;
+      sessionStorage.setItem('userName', name);
+    },
+    SETTOKEN(state, val) {
+      state.token = val;
+      setToken(val);
     }
   },
   actions: {

@@ -17,7 +17,9 @@
               <el-button class="search" icon="el-icon-search" @click="getSearch">
               </el-button>
             </el-tooltip>
-            <el-autocomplete ref="searchInput" v-model="searchVal" :fetch-suggestions="querySearchAsync" placeholder="站内搜索" @select="handleSelect" @blur="searchVisible=false" v-show="searchVisible"></el-autocomplete>
+            <transition name="el-fade-in-linear">
+              <el-autocomplete ref="searchInput" v-model="searchVal" :fetch-suggestions="querySearchAsync" placeholder="站内搜索" @select="handleSelect" @blur="searchVisible=false" v-show="searchVisible"></el-autocomplete>
+            </transition>
           </div>
           <!-- 全屏按钮 -->
           <el-tooltip effect="dark" content="全屏" placement="bottom">
@@ -34,7 +36,7 @@
           <!-- 退出首页 -->
           <el-dropdown class="rolebar">
             <span class="el-dropdown-link">
-              {{$store.state.userInfo.name}}<i class="el-icon-arrow-down el-icon--right"></i>
+              {{userName}}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
               <router-link to="/layout">
@@ -49,7 +51,7 @@
       </el-header>
       <el-container class="main-container">
         <el-aside :width="isCollapse ? '45px' : '200px'">
-          <el-menu class="el-menu-vertical-demo" :collapse="isCollapse" router>
+          <el-menu class="el-menu-vertical-demo" :default-active="this.$route.path" :collapse="isCollapse" :router="true" @select="acticeMenu">
             <el-menu-item index="/layout/echarts">
               <i class="el-icon-pie-chart"></i>
               <span>数据概览</span>
@@ -73,7 +75,9 @@
           </el-menu>
 
         </el-aside>
-        <el-main style="backgroundColor:#e7e8ed">Main</el-main>
+        <el-main style="backgroundColor:#e7e8ed">
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -84,6 +88,7 @@ import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import { getUserInfo } from '@/api/profile.js'
 import { search } from '@/api/menu.js'
 import { removeToken } from '@/utils/token.js'
+import { mapState } from 'vuex'
 export default {
   name: 'Dashboard',
   data() {
@@ -100,6 +105,7 @@ export default {
   created() {
     // this.getUsrInfo()
     // console.log(this.$store.state.userInfo.roles.menus)
+    console.log(this.$route.path)
   },
   mounted() {
     this.restaurants = search()
@@ -117,10 +123,10 @@ export default {
     },
     // 搜索事件
     getSearch() {
-      this.searchVisible = !this.searchVisible
-      // this.$nextTick(() => {
-      //   this.$refs.searchInput.focus()
-      // })
+      this.searchVisible = true
+      this.$nextTick(() => {
+        this.$refs.searchInput.focus()
+      })
     },
     // 返回输入建议的方法 (官网方法)
     querySearchAsync(queryString, callback) {
@@ -156,7 +162,7 @@ export default {
           })
           removeToken()
           // 删除用户信息
-          this.$store.commit('SETINFO', undefined)
+          this.$store.commit('SETUSERNAME', '')
           this.$router.push('/login')
         })
         .catch(() => {
@@ -167,13 +173,18 @@ export default {
         })
     },
     // 侧边栏
-    handleOpen() {},
-    handleClose() {}
+    acticeMenu(index) {
+      console.log(index)
+      this.activeIndex = index
+    }
   },
   computed: {
-    getUserInfo() {
-      return this.$store.state.userInfo
-    }
+    ...mapState({
+      userName: state => state.userName
+    })
+    // getUserInfo() {
+    //   return this.$store.state.userInfo
+    // }
   },
   components: { Breadcrumb }
 }

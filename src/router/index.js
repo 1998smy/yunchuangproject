@@ -23,12 +23,15 @@ VueRouter.prototype.replace = function push(location, onResolve, onReject) {
 // 导入需要配置路由的文件
 import Login from "@/views/login/index.vue"
 import Layout from '@/views/layout/layout.vue'
+import User from '@/views/layout/components/user.vue'
 
 const routes = [
-  // { path: '/', redirect: '/login' },
   { path: '/login', component: Login },
   {
-    path: '/layout', component: Layout
+    path: '/layout', component: Layout,
+    children: [
+      { path: 'user', component: User }
+    ]
 
   }
 ]
@@ -48,11 +51,11 @@ router.beforeEach((to, from, next) => {
       Message.error('必须登录才可以访问首页')
       return next('/login')
     } else {
-      if (!store.state.userInfo) {
+      if (!store.state.userName) {
         // token 正确判断
         getUserInfo().then(res => {
           // 保存用户信息 store需要在端部引入
-          store.commit('SETINFO', res.data)
+          store.commit('SETUSERNAME', res.data.name)
           // 验证成功
           // next('/layout')
           router.push('/layout')
@@ -62,6 +65,8 @@ router.beforeEach((to, from, next) => {
         next()
       }
     }
+  } else {
+    next()
   }
 })
 
