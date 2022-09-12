@@ -24,13 +24,15 @@ VueRouter.prototype.replace = function push(location, onResolve, onReject) {
 import Login from "@/views/login/index.vue"
 import Layout from '@/views/layout/layout.vue'
 import User from '@/views/layout/components/user.vue'
+import Companys from '@/views/layout/components/companys.vue'
 
 const routes = [
   { path: '/login', component: Login },
   {
     path: '/layout', component: Layout,
     children: [
-      { path: 'user', component: User }
+      { path: 'user', component: User },
+      { path: 'enterprise', component: Companys },
     ]
 
   }

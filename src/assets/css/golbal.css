@@ -1,0 +1,19 @@
+/* 表格内容居中 */
+.cell {
+  text-align: center;
+}
+/* 分页标签 */
+.el-pagination {
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* 浮动到最右边的按钮 */
+.floatRight{
+  float: right;
+}
+/* 表格上下间距 */
+.el-table{
+  margin: 10px 0 15px 0;
+  overflow: auto;
+}

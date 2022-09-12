@@ -14,7 +14,7 @@
       <!-- 添加新用户 -->
       <el-row>
         <el-col>
-          <el-button type="primary" @click="addUserBtn" class="addUser" icon="el-icon-edit">新增用户</el-button>
+          <el-button type="primary" @click="addUserBtn" class="floatRight" style="margin:10px 0" icon="el-icon-edit">新增用户</el-button>
         </el-col>
       </el-row>
       <!-- 消息提示 -->
@@ -282,26 +282,11 @@ export default {
 
 <style lang="less" scoped>
 .user {
+  width: 100%;
   height: 100%;
 
   .searchUser {
     margin-left: 10px;
-  }
-  .addUser {
-    float: right;
-    margin: 10px 0;
-  }
-
-  .el-alert {
-    margin-bottom: 10px;
-  }
-
-  /deep/.cell {
-    text-align: center;
-  }
-  .el-pagination {
-    margin-top: 15px;
-    text-align: center;
   }
 
   /deep/.el-dialog__header {

@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './styles/base.css'
+import './assets/css/golbal.css'
 // 导入 element-ui
 import '@/element-ui/element-ui.js'
 

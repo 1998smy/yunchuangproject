@@ -49,9 +49,9 @@
           </el-dropdown>
         </div>
       </el-header>
-      <el-container class="main-container">
-        <el-aside :width="isCollapse ? '45px' : '200px'">
-          <el-menu class="el-menu-vertical-demo" :default-active="this.$route.path" :collapse="isCollapse" :router="true" @select="acticeMenu">
+      <el-container class="aside-container">
+        <el-aside :class="isCollapse ? 'yCollapse' : 'noCollpase'" width="200px">
+          <el-menu class="el-menu-vertical-demo" :default-active="this.$route.path" :collapse="isCollapse" :router="true" :collapse-transition="false" @select="acticeMenu">
             <el-menu-item index="/layout/echarts">
               <i class="el-icon-pie-chart"></i>
               <span>数据概览</span>
@@ -75,9 +75,11 @@
           </el-menu>
 
         </el-aside>
-        <el-main style="backgroundColor:#e7e8ed">
-          <router-view></router-view>
-        </el-main>
+        <el-container class="main-container" :class="isCollapse ? 'yCollapseMain' : 'noCollapseMain'">
+          <el-main style="backgroundColor:#e7e8ed">
+            <router-view></router-view>
+          </el-main>
+        </el-container>
       </el-container>
     </el-container>
   </div>
@@ -198,6 +200,10 @@ export default {
     height: 100%;
 
     .el-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -269,14 +275,51 @@ export default {
       }
     }
 
-    .el-aside {
-      .el-menu-item {
-        font-size: 15px;
-        i {
-          margin-right: 10px;
+    .aside-container {
+      position: absolute;
+      top: 70px;
+      width: 100%;
+
+      .el-aside {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        background-color: #fff;
+        overflow: hidden;
+
+        .el-menu {
+          box-sizing: border-box;
+          border: 0;
+          .el-menu-item {
+            font-size: 15px;
+            width: 200px;
+            i {
+              margin-right: 10px;
+            }
+          }
         }
       }
     }
+
+    .main-container {
+      position: absolute;
+      top: 0;
+      max-width: calc(100% - 60px);
+    }
+  }
+  .yCollapse {
+    width: 60px;
+  }
+  .noCollpase {
+    width: 200px;
+  }
+  .yCollapseMain {
+    left: 60px;
+    width: calc(100% - 60px);
+  }
+  .noCollapseMain {
+    left: 200px;
+    width: calc(100% - 200px);
   }
 }
 </style>
