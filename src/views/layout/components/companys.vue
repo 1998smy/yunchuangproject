@@ -89,7 +89,7 @@
     </el-card>
     <!-- 新增对话框 -->
     <el-dialog title="编辑企业" :visible.sync="addCompVisible" :before-close="addCompReset" width="50%" center>
-      <el-form ref="addCompForm" :model="addCompForm" :rules="addCompRules" label-width="135px">
+      <el-form ref="addCompForm" :model="addCompForm" :rules="addCompRules" label-width="135px" style="width: 400px; margin-left:120px;">
         <el-form-item label="企业名称" prop="shortName">
           <el-input v-model="addCompForm.shortName"></el-input>
           <el-checkbox v-model="addCompForm.isFamous" @change="famousChange">是否为名企</el-checkbox>
@@ -123,7 +123,7 @@
     </el-dialog>
     <!-- 编辑对话框 -->
     <el-dialog title="编辑企业" :visible.sync="editCompVisible" :before-close="editCompReset" width="50%" center>
-      <el-form ref="editCompForm" :model="editCompForm" :rules="editCompRules" label-width="135px">
+      <el-form ref="editCompForm" :model="editCompForm" :rules="editCompRules" label-width="135px" style="width: 400px; margin-left:120px;">
         <el-form-item label="企业名称" prop="shortName">
           <el-input v-model="editCompForm.shortName"></el-input>
           <el-checkbox v-model="editCompForm.isFamous" @change="famousChange">是否为名企</el-checkbox>

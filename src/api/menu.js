@@ -1,3 +1,13 @@
+import { request } from "@/utils/request"
+
+export function getMenus(params) {
+  return request({
+    url: 'menus',
+    method: 'get',
+    params
+  })
+}
+
 export const search = data => {
   return [
     { value: '三全鲜食（北新泾店）', address: '长宁区新渔路144号' },

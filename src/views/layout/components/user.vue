@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <el-card class="box-card">
+    <el-card>
       <!-- 搜索框 -->
       <el-row>
         <el-col :span="4">

@@ -25,6 +25,7 @@ import Login from "@/views/login/index.vue"
 import Layout from '@/views/layout/layout.vue'
 import User from '@/views/layout/components/user.vue'
 import Companys from '@/views/layout/components/companys.vue'
+import Setting from '@/views/layout/components/setting.vue'
 
 const routes = [
   { path: '/login', component: Login },
@@ -33,6 +34,7 @@ const routes = [
     children: [
       { path: 'user', component: User },
       { path: 'enterprise', component: Companys },
+      { path: 'setting', component: Setting },
     ]
 
   }
