@@ -75,8 +75,8 @@
           </el-menu>
 
         </el-aside>
-        <el-container class="main-container" :class="isCollapse ? 'yCollapseMain' : 'noCollapseMain'">
-          <el-main style="backgroundColor:#e7e8ed">
+        <el-container class="main-container" :class="isCollapse ? 'yCollapseMain' : 'noCollapseMain'" style="backgroundColor:#e7e8ed">
+          <el-main>
             <router-view></router-view>
           </el-main>
         </el-container>
@@ -305,6 +305,7 @@ export default {
       position: absolute;
       top: 0;
       max-width: calc(100% - 60px);
+      height: calc(100vh - 70px);
     }
   }
   .yCollapse {

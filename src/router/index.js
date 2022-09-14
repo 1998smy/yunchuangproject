@@ -26,6 +26,7 @@ import Layout from '@/views/layout/layout.vue'
 import User from '@/views/layout/components/user.vue'
 import Companys from '@/views/layout/components/companys.vue'
 import Setting from '@/views/layout/components/setting.vue'
+import Menus from '@/views/layout/components/menus.vue'
 
 const routes = [
   { path: '/login', component: Login },
@@ -35,6 +36,7 @@ const routes = [
       { path: 'user', component: User },
       { path: 'enterprise', component: Companys },
       { path: 'setting', component: Setting },
+      { path: 'menus', component: Menus },
     ]
 
   }
