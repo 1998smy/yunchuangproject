@@ -8,6 +8,40 @@ export function getMenus(params) {
   })
 }
 
+export function getMenusById(id, params) {
+  return request({
+    url: 'menus/' + id,
+    method: 'get',
+    params
+  })
+}
+
+export function addMenus(data) {
+  return request({
+    url: 'menus',
+    method: 'post',
+    data
+  })
+}
+
+export function editMenus(id, data) {
+  return request({
+    url: 'menus/' + id,
+    method: 'put',
+    data
+  })
+}
+
+export function deleteMenus(id, data) {
+  return request({
+    url: 'menus/' + id,
+    method: 'delete',
+    data
+  })
+}
+
+
+
 export const search = data => {
   return [
     { value: '三全鲜食（北新泾店）', address: '长宁区新渔路144号' },

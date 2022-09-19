@@ -207,14 +207,6 @@ export default {
         }
       })
     },
-    // 搜索 按钮
-    searchSetting() {
-      this.getSettingList()
-    },
-    // 搜索表单重置
-    reset() {
-      this.$refs.searchInput.value = ''
-    },
     // 新增权限组数据 遍历转化
     setNode(arr) {
       for (let i = 0; i < arr.length; i++) {
@@ -227,6 +219,14 @@ export default {
         }
       }
       return arr
+    },
+    // 搜索 按钮
+    searchSetting() {
+      this.getSettingList()
+    },
+    // 搜索表单重置
+    reset() {
+      this.$refs.searchInput.value = ''
     },
     // 新增权限组 按钮
     addSettingBtn() {

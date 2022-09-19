@@ -17,3 +17,9 @@
   margin: 10px 0 15px 0;
   overflow: auto;
 }
+
+/* 表格字体大小 */
+.el-table__header,
+.el-table__body {
+  font-size: 14px;
+}

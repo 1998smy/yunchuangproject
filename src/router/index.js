@@ -29,6 +29,7 @@ import Setting from '@/views/layout/components/setting.vue'
 import Menus from '@/views/layout/components/menus.vue'
 
 const routes = [
+  { path: '/', redirect: '/login' },
   { path: '/login', component: Login },
   {
     path: '/layout', component: Layout,

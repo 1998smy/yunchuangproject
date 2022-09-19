@@ -129,8 +129,6 @@ export default {
           }).then(res => {
             if (res.status === 200) {
               this.$message.success('登录成功')
-              console.log('res', res)
-              console.log('token', res.data.token)
               this.$store.commit('SETTOKEN', res.data.token)
               // setToken(res.data.token)
               this.$router.push('/layout')

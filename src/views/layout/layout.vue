@@ -87,7 +87,6 @@
 
 <script>
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
-import { getUserInfo } from '@/api/profile.js'
 import { search } from '@/api/menu.js'
 import { removeToken } from '@/utils/token.js'
 import { mapState } from 'vuex'
@@ -104,25 +103,11 @@ export default {
       isCollapse: false
     }
   },
-  created() {
-    // this.getUsrInfo()
-    // console.log(this.$store.state.userInfo.roles.menus)
-    console.log(this.$route.path)
-  },
+  created() {},
   mounted() {
     this.restaurants = search()
   },
   methods: {
-    // 获取用户信息
-    getUsrInfo() {
-      getUserInfo()
-        .then(res => {
-          console.log(res.data)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    },
     // 搜索事件
     getSearch() {
       this.searchVisible = true
@@ -176,7 +161,6 @@ export default {
     },
     // 侧边栏
     acticeMenu(index) {
-      console.log(index)
       this.activeIndex = index
     }
   },
@@ -184,9 +168,6 @@ export default {
     ...mapState({
       userName: state => state.userName
     })
-    // getUserInfo() {
-    //   return this.$store.state.userInfo
-    // }
   },
   components: { Breadcrumb }
 }
