@@ -287,6 +287,9 @@ export default {
       top: 0;
       max-width: calc(100% - 60px);
       height: calc(100vh - 70px);
+      .el-main {
+        padding: 20px 10px;
+      }
     }
   }
   .yCollapse {

@@ -27,17 +27,19 @@ import User from '@/views/layout/components/user.vue'
 import Companys from '@/views/layout/components/companys.vue'
 import Setting from '@/views/layout/components/setting.vue'
 import Menus from '@/views/layout/components/menus.vue'
+import Echarts from '@/views/layout/components/echarts.vue'
 
 const routes = [
   { path: '/', redirect: '/login' },
   { path: '/login', component: Login },
   {
-    path: '/layout', component: Layout,
+    path: '/layout', component: Layout, redirect: '/layout/echarts',
     children: [
       { path: 'user', component: User },
       { path: 'enterprise', component: Companys },
       { path: 'setting', component: Setting },
       { path: 'menus', component: Menus },
+      { path: 'echarts', component: Echarts },
     ]
 
   }
